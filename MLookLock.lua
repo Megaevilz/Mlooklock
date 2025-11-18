@@ -43,7 +43,7 @@ function HideCrosshair()
     crosshairFrame:Hide()
 end
 
-local crosshairSize = 16
+local crosshairSize = 0
 local moving = false
 local oldX, oldY
 
@@ -202,6 +202,7 @@ local 	frame = CreateFrame("Frame")
 		
 SlashCmdList["MLOOKLOCK_COMMAND"] = slashcmd
 SLASH_MLOOKLOCK_COMMAND1 = "/mll"
+
 
 
 
