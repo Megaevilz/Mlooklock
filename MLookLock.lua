@@ -27,6 +27,47 @@
 	V1.1	Fixed a small error introduced when I cleaned up the code for public release
 --]]
 
+local crosshairFrame = CreateFrame("Frame", "OldScrollsCrosshairFrame", UIParent)
+crosshairFrame:SetWidth(16)
+crosshairFrame:SetHeight(16)
+crosshairFrame:SetPoint("CENTER", 0, 0)
+
+local crosshairTexture = crosshairFrame:CreateTexture(nil, "OVERLAY")
+crosshairTexture:SetAllPoints()
+crosshairTexture:SetTexture("Interface\\AddOns\\MLookLock\\crosshair.tga")
+
+function ShowCrosshair()
+    crosshairFrame:Show()
+end
+
+function HideCrosshair()
+    crosshairFrame:Hide()
+end
+
+local crosshairSize = 16
+local moving = false
+local oldX, oldY
+
+local function UpdateCrosshairSize()
+    if moving then
+        crosshairFrame:SetWidth(crosshairSize * 1.5)
+        crosshairFrame:SetHeight(crosshairSize * 1.5)
+    else
+        crosshairFrame:SetWidth(crosshairSize)
+        crosshairFrame:SetHeight(crosshairSize)
+    end
+end
+
+local function UpdateMovementState()
+    local x, y = GetPlayerMapPosition("player")
+    if x ~= oldX or y ~= oldY then
+        moving = true
+    else
+        moving = false
+    end
+    oldX, oldY = x, y
+    UpdateCrosshairSize()
+end
 
 crosshairFrame:SetScript("OnUpdate", UpdateMovementState)
 
@@ -162,6 +203,7 @@ local 	frame = CreateFrame("Frame")
 		
 SlashCmdList["MLOOKLOCK_COMMAND"] = slashcmd
 SLASH_MLOOKLOCK_COMMAND1 = "/mll"
+
 
 
 
